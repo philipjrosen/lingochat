@@ -4,6 +4,9 @@
 
 <body>
   <h1>LingoChat</h1>
+  <div id="source-select">
+    {{> languages}}
+  </div>
   <div id="left-wrapper">
     {{> username}}
     {{> messages}}
@@ -20,11 +23,24 @@
   </div>
 </template>
 
+<template name="languages">
+    <select name="languages">
+      {{#each languages}}
+        {{> language}}
+      {{/each}}
+    </select>
+</template>
+
+<template name="language">
+  <option value="{{name}}">{{language}}</option>
+</template>
+
 <template name="leftEntry">
   <div id="left-entry">
     <textarea name="message" class="boxsizingBorder" id="leftMessageBox" rows="4" placeholder="Enter your message..."></textarea>
   </div>
 </template>
+
 
 <template name="rightEntry">
   <div id="right-entry">
@@ -55,3 +71,4 @@
 <template name="translation">
   <p><strong>{{name}}:</strong> {{translation}}</p> 
 </template>
+

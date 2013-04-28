@@ -1,5 +1,6 @@
 Messages = new Meteor.Collection('messages');
 Translations = new Meteor.Collection('translations');
+Languages = new Meteor.Collection('languages');
 
 if (Meteor.is_client) {
 //COPIED FROM THE METEOR TODOS EXAMPLE:
@@ -30,12 +31,36 @@ if (Meteor.is_client) {
     return events;
   };
 
+  var loadLanguages = function() {
+    var request_url = 'https://www.googleapis.com/language/translate/v2/languages';
+    var request_params = {
+      key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
+      target: 'en'
+    }
+    console.log(request_params);
+    Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
+      if(err){
+        console.log("Error: " + err);
+      } else { 
+        var languages = res.data.data.languages;
+        console.log(res.data.data);
+        console.log(languages.length);
+        for(var i = 0; i < languages.length; i++){
+          console.log(languages[i].name);
+          Languages.insert({
+            name: languages[i].name
+           });
+        }
+      }
+    });
+  };
+
   var translateTextLeft = function(name, text, timestamp){
     var request_url = 'https://www.googleapis.com/language/translate/v2';
     var request_params = {
       key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
       source: 'en',
-      target: 'pt',
+      target: 'iw',
       q: text
     };
     console.log(request_params);
@@ -75,7 +100,7 @@ if (Meteor.is_client) {
     var request_url = 'https://www.googleapis.com/language/translate/v2';
     var request_params = {
       key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
-      source: 'pt',
+      source: 'iw',
       target: 'en',
       q: text
     };
@@ -118,6 +143,10 @@ if (Meteor.is_client) {
 
   Template.translations.translations = function(){
     return Translations.find({}, { sort: {time: 1} });
+  };
+
+  Template.languages.languages = function(){
+    return Languages.find({}, { sort: name });
   };
 }
 
