@@ -117,8 +117,10 @@ if (Meteor.is_client) {
   }));
 
   var translateTextRight = function(name, text, timestamp){
-    var src = $('#source-select').val();
-    var trg = $('#target-select').val();
+    var trgName = $('#source-select').val();
+    var srcName = $('#target-select').val();
+    var src = Languages.findOne({name:srcName}).language;
+    var trg = Languages.findOne({name:trgName}).language;
     var request_url = 'https://www.googleapis.com/language/translate/v2';
     var request_params = {
       key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
