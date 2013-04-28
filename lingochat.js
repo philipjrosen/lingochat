@@ -2,7 +2,47 @@ Messages = new Meteor.Collection('messages');
 Translations = new Meteor.Collection('translations');
 Languages = new Meteor.Collection('languages');
 
+if (Meteor.is_server) {
+    //console.log("count before remove: " +Languages.find({}).count();
+    var loadSourceLanguages = function() {
+      Languages.remove({});
+      var request_url = 'https://www.googleapis.com/language/translate/v2/languages';
+      var request_params = {
+        key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
+        target: 'en'
+      }
+      Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
+        if(err){
+          console.log("Error: " + err);
+        } else { 
+          var languages = res.data.data.languages;
+          for(var i = 0; i < languages.length; i++){
+            console.log(languages[i].language);
+            Languages.insert({
+              name: languages[i].name,
+              language: languages[i].language
+             });
+          }
+        }
+      });
+  };
+  
+  Meteor.startup(function () {
+    loadSourceLanguages();
+  });
+}
+
 if (Meteor.is_client) {
+  
+  var setCSS = function(){
+    $('#right-wrapper').scrollTop(300);
+    $('#left-wrapper').scrollTop(300);
+  };
+ 
+ Meteor.startup(function () {
+    setCSS();
+  });
+
 //COPIED FROM THE METEOR TODOS EXAMPLE:
 // Returns an event map that handles the "escape" and "return" keys and
 // "blur" events on a text input (given by selector) and interprets them
@@ -31,42 +71,22 @@ if (Meteor.is_client) {
     return events;
   };
 
-  var loadLanguages = function() {
-    var request_url = 'https://www.googleapis.com/language/translate/v2/languages';
-    var request_params = {
-      key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
-      target: 'en'
-    }
-    console.log(request_params);
-    Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
-      if(err){
-        console.log("Error: " + err);
-      } else { 
-        var languages = res.data.data.languages;
-        console.log(res.data.data);
-        console.log(languages.length);
-        for(var i = 0; i < languages.length; i++){
-          console.log(languages[i].name);
-          Languages.insert({
-            name: languages[i].name
-           });
-        }
-      }
-    });
-  };
-
   var translateTextLeft = function(name, text, timestamp){
+    var srcName = $('#source-select').val();
+    var trgName = $('#target-select').val();
+    var src = Languages.findOne({name:srcName}).language;
+    var trg = Languages.findOne({name:trgName}).language;
     var request_url = 'https://www.googleapis.com/language/translate/v2';
     var request_params = {
       key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
-      source: 'en',
-      target: 'iw',
+      source: src,
+      target: trg,
       q: text
     };
     console.log(request_params);
     Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
        if(err){
-        console.log("Error: " + err);
+        console.log(err);
        } else {
          Translations.insert({
          name: name,
@@ -97,17 +117,19 @@ if (Meteor.is_client) {
   }));
 
   var translateTextRight = function(name, text, timestamp){
+    var src = $('#source-select').val();
+    var trg = $('#target-select').val();
     var request_url = 'https://www.googleapis.com/language/translate/v2';
     var request_params = {
       key: 'AIzaSyApd5b77jtVRZCfCAn6wzlaD52FoXeJwCw',
-      source: 'iw',
-      target: 'en',
+      source: src,
+      target: trg,
       q: text
     };
     console.log(request_params);
     Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
        if(err){
-        console.log("Error: " + err);
+        console.log(err);
        } else {
          Messages.insert({
          name: name,
@@ -136,6 +158,7 @@ if (Meteor.is_client) {
       }
     }
   }));
+
   
   Template.messages.messages = function(){
     return Messages.find({}, { sort: {time: 1} });
@@ -145,8 +168,13 @@ if (Meteor.is_client) {
     return Translations.find({}, { sort: {time: 1} });
   };
 
-  Template.languages.languages = function(){
+  Template.sourceLanguages.sourceLanguages = function(){
     return Languages.find({}, { sort: name });
   };
+
+  Template.targetLanguages.targetLanguages = function(){
+    return Languages.find({}, { sort: name });
+  };
+  
 }
 

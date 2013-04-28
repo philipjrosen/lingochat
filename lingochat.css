@@ -1,3 +1,13 @@
+#target-select {
+  float:right;
+  width: 250px;
+  border: 2px solid red;
+}
+#source-select {
+  border: 2px solid blue;
+  width: 250px;
+}
+
 #left-entry {
   float: left;
   width: 48%;
@@ -17,19 +27,24 @@
   border: 2px solid black;
 }
 
-#right-wrapper {  
-  border: 2px solid green;
-  width: 48%;
-  float: right;
-  padding-top: 20px;
-}
-
 #left-wrapper {
   border: 2px solid blue;
   width: 48%;
   float: left;
+  position: relative;
+  overflow: auto;
+  height: 100px;
 }
 
+#right-wrapper {
+  border: 2px solid green;
+  padding-top: 20px;
+  width: 48%;
+  float: right;
+  position: relative;
+  overflow: auto;
+  height: 100px;
+}
 
 textarea {
   resize: none;

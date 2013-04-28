@@ -4,16 +4,21 @@
 
 <body>
   <h1>LingoChat</h1>
-  <div id="source-select">
-    {{> languages}}
+  {{> username}}
+  <div>
+    {{> sourceLanguages}}
   </div>
-  <div id="left-wrapper">
-    {{> username}}
+  <div>
+    {{> targetLanguages}}
+  </div>
+  <div id="left-wrapper" class="scroll">
     {{> messages}}
-    {{> leftEntry}} 
   </div>
-  <div id="right-wrapper">
+  <div id="right-wrapper" class="scroll">
     {{> translations}}
+  </div>
+  <div id="bottom">
+    {{> leftEntry}}
     {{> rightEntry}} 
   </div>
 </body>
@@ -23,28 +28,40 @@
   </div>
 </template>
 
-<template name="languages">
-    <select name="languages">
-      {{#each languages}}
-        {{> language}}
+<template name="sourceLanguages">
+    <select name="sourceLanguages" id="source-select">
+      {{#each sourceLanguages}}
+        {{> sourceLanguage}}
       {{/each}}
     </select>
 </template>
 
-<template name="language">
-  <option value="{{name}}">{{language}}</option>
+<template name="sourceLanguage">
+  <option value="{{name}}">{{name}}</option>
+</template>
+
+<template name="targetLanguages">
+    <select name="targetLanguages" id="target-select">
+      {{#each targetLanguages}}
+        {{> targetLanguage}}
+      {{/each}}
+    </select>
+</template>
+
+<template name="targetLanguage">
+  <option value="{{name}}">{{name}}</option>
 </template>
 
 <template name="leftEntry">
   <div id="left-entry">
-    <textarea name="message" class="boxsizingBorder" id="leftMessageBox" rows="4" placeholder="Enter your message..."></textarea>
+    <textarea name="message" class="boxsizingBorder" id="leftMessageBox" rows="2" placeholder="Enter your message..."></textarea>
   </div>
 </template>
 
 
 <template name="rightEntry">
   <div id="right-entry">
-    <textarea name="right-message" class="boxsizingBorder" id="rightMessageBox" rows="4" placeholder="Enter your message..."></textarea>
+    <textarea name="right-message" class="boxsizingBorder" id="rightMessageBox" rows="2" placeholder="Enter your message..."></textarea>
   </div>
 </template>
 
