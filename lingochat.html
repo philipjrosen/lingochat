@@ -1,0 +1,57 @@
+<head>
+  <title>lingochat</title>
+</head>
+
+<body>
+  <h1>LingoChat</h1>
+  <div id="left-wrapper">
+    {{> username}}
+    {{> messages}}
+    {{> leftEntry}} 
+  </div>
+  <div id="right-wrapper">
+    {{> translations}}
+    {{> rightEntry}} 
+  </div>
+</body>
+
+<template name="username">
+  <div><input type="text" id="name" placeholder="Enter your name">
+  </div>
+</template>
+
+<template name="leftEntry">
+  <div id="left-entry">
+    <textarea name="message" class="boxsizingBorder" id="leftMessageBox" rows="4" placeholder="Enter your message..."></textarea>
+  </div>
+</template>
+
+<template name="rightEntry">
+  <div id="right-entry">
+    <textarea name="right-message" class="boxsizingBorder" id="rightMessageBox" rows="4" placeholder="Enter your message..."></textarea>
+  </div>
+</template>
+
+<template name="messages">
+  <div>
+    {{#each messages}}
+      {{> message}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="message">
+  <p><strong>{{name}}:</strong> {{message}}</p> 
+</template>
+
+<template name="translations">
+  <div>
+    {{#each translations}}
+      {{> translation}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="translation">
+  <p><strong>{{name}}:</strong> {{translation}}</p> 
+</template>

@@ -1,0 +1,18 @@
+1. On 'enter' event make get request to api with sourceText = message
+2. Get back JSON:
+{"data": {"translations": [{"translatedText": "Hallo Welt"}]}}
+3. Put 'translatedText' into Meteor Collection
+4. Result is injected into DOM through the 'translation' template
+
+1. making jsonp based on structure of my request
+2. meteor is doing it automatically
+
+
+convert response from jsonp to json
+
+a. ask for json back from server and process json
+b. modify code to use jsonp
+c. convert jsonp to json to use in code
+
+
+/////

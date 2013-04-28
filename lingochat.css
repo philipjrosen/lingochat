@@ -1,0 +1,46 @@
+#left-entry {
+  float: left;
+  width: 48%;
+  position: absolute; 
+  bottom: 0; 
+  left: 0;
+  margin:10px;
+  border: 2px solid red;
+}
+#right-entry {
+  float: right;
+  width: 48%;
+  position: absolute; 
+  bottom: 0; 
+  right: 0;
+  margin:10px;  
+  border: 2px solid black;
+}
+
+#right-wrapper {  
+  border: 2px solid green;
+  width: 48%;
+  float: right;
+  padding-top: 20px;
+}
+
+#left-wrapper {
+  border: 2px solid blue;
+  width: 48%;
+  float: left;
+}
+
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+h1{
+  width: 30%;
+}
+
+.boxsizingBorder {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
