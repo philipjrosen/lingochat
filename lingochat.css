@@ -55,57 +55,65 @@ table {
 body {
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding-left: 10px;
+  background: #f4f4f4 url(client/bootstrap/img/background.png);
 }
 
 h1 {
-  border: 2px solid green;
+  font-size: 30px;
+  font-weight: bold;
+  width: 15%;
 }
 
-#username {
-  border: 2px solid blue;	
+#name {
 }
 
 #target-select {
-  border: 3px solid red;
   width: 250px;
+  margin-left: 308px;
 }
 
 #source-select {
-  border: 3px solid blue;
   width: 250px;
 }
 
 .text, .textEntry {
   clear: left;
   width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
+
 #left-entry {
-  border: 4px solid green;
   clear: left;
   float: left;
-  width: 400px;
+  width: 500px;
 }
 
 #right-entry {
-  border: 4px solid black;
   float: left;
-  width: 400px;
+  width: 500px;
+  margin-left: 50px;
 }
 
 #messages {
-  border: 2px solid blue;
   float: left;
   margin-bottom: 10px;
   margin-right: 10px;
-  width: 400px;
+  width: 500px;
+  height: 400px;
+  overflow: auto;
+  background-color: white;
 }
 
 #translations {
-  border: 2px solid blue;
   float: left;
-  width: 400px;
+  width: 500px;
+  height: 400px;
+  overflow: auto;
+  margin-left: 50px;
+  background-color: white;
 }
 
 #messages p, #translations p {

@@ -32,14 +32,17 @@ if (Meteor.is_server) {
 
 if (Meteor.is_client) {
   
-  var setCSS = function(){
-    $('#right-wrapper').scrollTop(300);
-    $('#left-wrapper').scrollTop(300);
-  };
- 
- Meteor.startup(function () {
-    setCSS();
-  });
+
+  Template.messages.rendered = function() {
+    //do this only on template load
+    if(!this._rendered) {
+      this._rendered = true;
+      $("#myModal").modal();
+    }
+    $('#messages').scrollTop(10000);
+    $('#translations').scrollTop(10000);
+  } 
+
 
 //COPIED FROM THE METEOR TODOS EXAMPLE:
 // Returns an event map that handles the "escape" and "return" keys and
@@ -55,8 +58,7 @@ if (Meteor.is_client) {
           // escape = cancel
           cancel.call(this, evt);
 
-        } else if (evt.type === "keyup" && evt.which === 13 ||
-                   evt.type === "focusout") {
+        } else if (evt.type === "keyup" && evt.which === 13) {
           // blur/return/enter = ok/submit if non-empty
           var value = String(evt.target.value || "");
           if (value)
@@ -109,6 +111,8 @@ if (Meteor.is_client) {
           });
           evt.target.value = '';
           translateTextLeft(nameEntry.value,text,ts);
+          $('#messages').scrollTop(10000);
+          $('#translations').scrollTop(10000);
         }
       }
   }));
@@ -154,6 +158,8 @@ if (Meteor.is_client) {
         });
         evt.target.value = '';
         translateTextRight(nameEntry.value,text,ts);
+        $('#messages').scrollTop(1000);
+        $('#translations').scrollTop(1000);
       }
     }
   }));
@@ -174,6 +180,10 @@ if (Meteor.is_client) {
   Template.targetLanguages.targetLanguages = function(){
     return Languages.find({}, { sort: name });
   };
+
+  // Template.myModal.show = function(){
+  //   $("#myModal").show();
+  // };
   
 }
 
