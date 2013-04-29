@@ -5,26 +5,20 @@
 <body>
   <h1>LingoChat</h1>
   {{> username}}
-  <div>
-    {{> sourceLanguages}}
+  {{> sourceLanguages}}
+  {{> targetLanguages}}
+  <div class="text">
+  	{{> messages}}
+  	{{> translations}}
   </div>
-  <div>
-    {{> targetLanguages}}
-  </div>
-  <div id="left-wrapper" class="scroll">
-    {{> messages}}
-  </div>
-  <div id="right-wrapper" class="scroll">
-    {{> translations}}
-  </div>
-  <div id="bottom">
+  <div class="textEntry">
     {{> leftEntry}}
-    {{> rightEntry}} 
+    {{> rightEntry}}
   </div>
 </body>
 
 <template name="username">
-  <div><input type="text" id="name" placeholder="Enter your name">
+  <div><input type="text" id="username" placeholder="Enter your name">
   </div>
 </template>
 
@@ -52,6 +46,30 @@
   <option value="{{name}}">{{name}}</option>
 </template>
 
+<template name="messages">
+  <div id="messages" class="scroll">
+    {{#each messages}}
+      {{> message}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="message">
+  <p><strong>{{name}}:</strong> {{message}}</p> 
+</template>
+
+<template name="translations">
+  <div id="translations" class="scroll">
+    {{#each translations}}
+      {{> translation}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="translation">
+  <p><strong>{{name}}:</strong> {{translation}}</p> 
+</template>
+
 <template name="leftEntry">
   <div id="left-entry">
     <textarea name="message" class="boxsizingBorder" id="leftMessageBox" rows="2" placeholder="Enter your message..."></textarea>
@@ -64,28 +82,3 @@
     <textarea name="right-message" class="boxsizingBorder" id="rightMessageBox" rows="2" placeholder="Enter your message..."></textarea>
   </div>
 </template>
-
-<template name="messages">
-  <div>
-    {{#each messages}}
-      {{> message}}
-    {{/each}}
-  </div>
-</template>
-
-<template name="message">
-  <p><strong>{{name}}:</strong> {{message}}</p> 
-</template>
-
-<template name="translations">
-  <div>
-    {{#each translations}}
-      {{> translation}}
-    {{/each}}
-  </div>
-</template>
-
-<template name="translation">
-  <p><strong>{{name}}:</strong> {{translation}}</p> 
-</template>
-

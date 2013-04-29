@@ -3,7 +3,6 @@ Translations = new Meteor.Collection('translations');
 Languages = new Meteor.Collection('languages');
 
 if (Meteor.is_server) {
-    //console.log("count before remove: " +Languages.find({}).count();
     var loadSourceLanguages = function() {
       Languages.remove({});
       var request_url = 'https://www.googleapis.com/language/translate/v2/languages';
@@ -17,7 +16,6 @@ if (Meteor.is_server) {
         } else { 
           var languages = res.data.data.languages;
           for(var i = 0; i < languages.length; i++){
-            console.log(languages[i].language);
             Languages.insert({
               name: languages[i].name,
               language: languages[i].language
@@ -101,7 +99,6 @@ if (Meteor.is_client) {
     '#leftMessageBox',
     {
       ok: function (text, evt) {
-        //var tag = Session.get('tag_filter');
         var nameEntry = document.getElementById('name');
         if(nameEntry.value !== ""){
           var ts = (new Date()).getTime();
