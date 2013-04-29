@@ -31,23 +31,24 @@ if (Meteor.is_server) {
 }
 
 if (Meteor.is_client) {
-  
+  var height = 1000000;
   var nameEntry = "";
   Template.messages.rendered = function() {
     //do this only on template load
     if(!this._rendered) {
       this._rendered = true;
-      $("#myModal").modal();
-      $("#get-username").on('submit', function() {
-      nameEntry = $('[name="username"]').val();
+      $("#myModal").modal({backdrop:false});
+      $("#get-username").on('submit', function(e) {
+      nameEntry = $('#username').val();
       console.log(nameEntry);
       $('#myModal').hide();
+      e.preventDefault();
 
     });
   }
     
-    $('#messages').scrollTop(10000);
-    $('#translations').scrollTop(10000);
+    $('#messages').scrollTop(height);
+    $('#translations').scrollTop(height);
   } 
 
 
@@ -118,8 +119,8 @@ if (Meteor.is_client) {
           });
           evt.target.value = '';
           translateTextLeft(nameEntry,text,ts);
-          $('#messages').scrollTop(10000);
-          $('#translations').scrollTop(10000);
+          $('#messages').scrollTop(height);
+          $('#translations').scrollTop(height);
         }
       }
   }));
@@ -165,8 +166,8 @@ if (Meteor.is_client) {
         });
         evt.target.value = '';
         translateTextRight(nameEntry,text,ts);
-        $('#messages').scrollTop(1000);
-        $('#translations').scrollTop(1000);
+        $('#messages').scrollTop(height);
+        $('#translations').scrollTop(height);
       }
     }
   }));
