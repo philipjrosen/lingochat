@@ -32,13 +32,20 @@ if (Meteor.is_server) {
 
 if (Meteor.is_client) {
   
-
+  var nameEntry = "";
   Template.messages.rendered = function() {
     //do this only on template load
     if(!this._rendered) {
       this._rendered = true;
       $("#myModal").modal();
-    }
+      $("#get-username").on('submit', function() {
+      nameEntry = $('[name="username"]').val();
+      console.log(nameEntry);
+      $('#myModal').hide();
+
+    });
+  }
+    
     $('#messages').scrollTop(10000);
     $('#translations').scrollTop(10000);
   } 
@@ -101,16 +108,16 @@ if (Meteor.is_client) {
     '#leftMessageBox',
     {
       ok: function (text, evt) {
-        var nameEntry = document.getElementById('name');
-        if(nameEntry.value !== ""){
+        //var nameEntry = document.getElementById('name');
+        if(nameEntry !== ""){
           var ts = (new Date()).getTime();
           Messages.insert({
-            name: nameEntry.value,
+            name: nameEntry,
             message: text, 
             timestamp: ts
           });
           evt.target.value = '';
-          translateTextLeft(nameEntry.value,text,ts);
+          translateTextLeft(nameEntry,text,ts);
           $('#messages').scrollTop(10000);
           $('#translations').scrollTop(10000);
         }
@@ -148,16 +155,16 @@ if (Meteor.is_client) {
   {
     ok: function (text, evt) {
       //var tag = Session.get('tag_filter');
-      var nameEntry = document.getElementById('name');
-      if(nameEntry.value !== ""){
+      //var nameEntry = document.getElementById('name');
+      if(nameEntry !== ""){
         var ts = (new Date()).getTime();
         Translations.insert({
-          name: nameEntry.value,
+          name: nameEntry,
           translation: text, 
           timestamp: ts
         });
         evt.target.value = '';
-        translateTextRight(nameEntry.value,text,ts);
+        translateTextRight(nameEntry,text,ts);
         $('#messages').scrollTop(1000);
         $('#translations').scrollTop(1000);
       }
