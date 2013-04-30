@@ -122,14 +122,15 @@
           <input type="text" id="username" placeholder="Your Name">
         </div> <br /> 
         <div id="default">
-          <p>I speak:</p><br /> 
-          {{> defaultSources}}
-           <p>I want to chat in:</p><br /> 
-           {{> defaultTargets}}
+          <p>I speak*:</p><br /> 
+            {{> defaultSources}}
+          <p>I want to chat in*:</p><br /> 
+            {{> defaultTargets}}
+          <p id="note">*You can change these later</p>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         <input type="submit" class="btn btn-primary" value="Submit">
       </div>
     </form>

@@ -32,8 +32,9 @@ if (Meteor.is_server) {
 
 if (Meteor.is_client) {
   var height = 1000000;
-  var nameEntry = "";
-  var defaultLang = "";
+  var nameEntry = "Anonymous";
+  var defaultSource = "";
+  var defaultTarget = "";
   Template.messages.rendered = function() {
     //do this only on template load
     if(!this._rendered) {
@@ -42,11 +43,11 @@ if (Meteor.is_client) {
       $("#get-username").on('submit', function(e) {
         e.preventDefault();
         nameEntry = $('#username').val();
-        var defaultLang = $('#default-select').val();
-        //now set the sourceLanguages select to 'defaultLang'
-        console.log(defaultLang);
-        $('#myModal').hide();
-        $("#myModal").modal({backdrop:false});
+        defaultSource = $('#defaultSource-select').val();
+        defaultTarget = $('#defaultTarget-select').val();
+        $('#source-select').val(defaultSource);
+        $('#target-select').val(defaultTarget);
+        $('#myModal').modal('hide');
     });
   }
     
@@ -93,7 +94,6 @@ if (Meteor.is_client) {
       target: trg,
       q: text
     };
-    console.log(request_params);
     Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
        if(err){
         console.log(err);
@@ -139,7 +139,6 @@ if (Meteor.is_client) {
       target: trg,
       q: text
     };
-    console.log(request_params);
     Meteor.http.get(request_url, {params: request_params}, function (err, res) {  
        if(err){
         console.log(err);
