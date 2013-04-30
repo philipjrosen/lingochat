@@ -63,6 +63,7 @@ h1 {
   font-size: 30px;
   font-weight: bold;
   width: 15%;
+  padding:10px;
 }
 
 #name {
@@ -76,6 +77,11 @@ h1 {
 #source-select {
   width: 250px;
 }
+
+#default-select {
+  width: 250px;
+}
+
 
 .text, .textEntry {
   clear: left;
@@ -130,4 +136,8 @@ textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+p {
+  font-size: 20px;
 }

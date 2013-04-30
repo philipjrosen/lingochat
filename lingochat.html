@@ -16,10 +16,10 @@
   </div>
 </body>
 
-<template name="name">
+<!-- <template name="name">
   <div><input type="text" id="old-name" placeholder="Enter your name">
   </div>
-</template>
+</template> -->
 
 <template name="sourceLanguages">
     <select name="sourceLanguages" id="source-select">
@@ -45,8 +45,20 @@
   <option value="{{name}}">{{name}}</option>
 </template>
 
+<template name="defaultLanguages">
+    <select name="defaultLanguages" id="default-select">
+      {{#each defaultLanguages}}
+        {{> defaultLanguage}}
+      {{/each}}
+    </select>
+</template>
+
+<template name="defaultLanguage">
+  <option value="{{name}}">{{name}}</option>
+</template>
+
 <template name="messages">
-  <div id="messages" class="scroll">
+  <div id="messages">
     {{#each messages}}
       {{> message}}
     {{/each}}
@@ -58,7 +70,7 @@
 </template>
 
 <template name="translations">
-  <div id="translations" class="scroll">
+  <div id="translations">
     {{#each translations}}
       {{> translation}}
     {{/each}}
@@ -84,21 +96,31 @@
 
 <template name="myModal">  
   <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Welcome to LingoChat</h3>
+      <p>LingoChat instantaneously translates messages you type in one language into more than 50 of the world's most spoken languages.</p>
+      <br />
+      <p>Use it to chat with people who speak a different language or as a tool for learning to speak a new language.</p><br /> 
+      <p>Enter your name to start:</p>
     </div>
-
     <form id="get-username">
       <div class="modal-body">
-        <div><input type="text" id="username" placeholder="Enter your name to start chatting...">
+        <div>
+          <input type="text" id="username" placeholder="Your Name">
+        </div> <br /> 
+        <div id="default">
+          <p>I speak:</p><br /> 
+          {{> defaultLanguages}}
+           <p>I want to chat in:</p><br /> 
+          {{> defaultLanguages}}
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         <input type="submit" class="btn btn-primary" value="Submit">
       </div>
-  </form>
-</div>
+    </form>
+  </div>
 </template>
+

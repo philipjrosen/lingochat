@@ -33,24 +33,26 @@ if (Meteor.is_server) {
 if (Meteor.is_client) {
   var height = 1000000;
   var nameEntry = "";
+  var defaultLang = "";
   Template.messages.rendered = function() {
     //do this only on template load
     if(!this._rendered) {
       this._rendered = true;
-      $("#myModal").modal({backdrop:false});
+      $("#myModal").modal({backdrop:true});
       $("#get-username").on('submit', function(e) {
-      nameEntry = $('#username').val();
-      console.log(nameEntry);
-      $('#myModal').hide();
-      e.preventDefault();
-
+        e.preventDefault();
+        nameEntry = $('#username').val();
+        var defaultLang = $('#default-select').val();
+        //now set the sourceLanguages select to 'defaultLang'
+        console.log(defaultLang);
+        $('#myModal').hide();
+        $("#myModal").modal({backdrop:false});
     });
   }
     
     $('#messages').scrollTop(height);
     $('#translations').scrollTop(height);
   } 
-
 
 //COPIED FROM THE METEOR TODOS EXAMPLE:
 // Returns an event map that handles the "escape" and "return" keys and
@@ -186,6 +188,10 @@ if (Meteor.is_client) {
   };
 
   Template.targetLanguages.targetLanguages = function(){
+    return Languages.find({}, { sort: name });
+  };
+
+  Template.defaultLanguages.defaultLanguages = function(){
     return Languages.find({}, { sort: name });
   };
 
