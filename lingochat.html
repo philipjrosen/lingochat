@@ -45,15 +45,27 @@
   <option value="{{name}}">{{name}}</option>
 </template>
 
-<template name="defaultLanguages">
-    <select name="defaultLanguages" id="default-select">
-      {{#each defaultLanguages}}
-        {{> defaultLanguage}}
+<template name="defaultSources">
+    <select name="defaultSources" id="defaultSource-select">
+      {{#each defaultSources}}
+        {{> defaultSource}}
       {{/each}}
     </select>
 </template>
 
-<template name="defaultLanguage">
+<template name="defaultSource">
+  <option value="{{name}}">{{name}}</option>
+</template>
+
+<template name="defaultTargets">
+    <select name="defaultTargets" id="defaultTarget-select">
+      {{#each defaultTargets}}
+        {{> defaultTarget}}
+      {{/each}}
+    </select>
+</template>
+
+<template name="defaultTarget">
   <option value="{{name}}">{{name}}</option>
 </template>
 
@@ -111,9 +123,9 @@
         </div> <br /> 
         <div id="default">
           <p>I speak:</p><br /> 
-          {{> defaultLanguages}}
+          {{> defaultSources}}
            <p>I want to chat in:</p><br /> 
-          {{> defaultLanguages}}
+           {{> defaultTargets}}
         </div>
       </div>
       <div class="modal-footer">

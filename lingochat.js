@@ -191,7 +191,11 @@ if (Meteor.is_client) {
     return Languages.find({}, { sort: name });
   };
 
-  Template.defaultLanguages.defaultLanguages = function(){
+  Template.defaultSources.defaultSources = function(){
+    return Languages.find({}, { sort: name });
+  };
+
+  Template.defaultTargets.defaultTargets = function(){
     return Languages.find({}, { sort: name });
   };
 
