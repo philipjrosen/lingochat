@@ -196,11 +196,5 @@ if (Meteor.is_client) {
 
   Template.defaultTargets.defaultTargets = function(){
     return Languages.find({}, { sort: name });
-  };
-
-  // Template.myModal.show = function(){
-  //   $("#myModal").show();
-  // };
-  
+  };  
 }
-
